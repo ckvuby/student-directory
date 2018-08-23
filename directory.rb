@@ -1,26 +1,39 @@
 # first, we print the list of studentss
 students = [
 
-"Dr. Hannibal Lecter",
-"Darth Vader",  
-"Nurse Ratched",
-"Michael Corleone",
-"Alex DeLarge",
-"The Wicked Witch of the West",
-"Terminator",
-"Freddy Krueger",
-"The Joker",
-"Joffrey Baratheon",
-"Norman Bates",
+{name: "Dr. Hannibal Lecter", cohort: :november},
+{name: "Darth Vader", cohort: :november},  
+{name: "Nurse Ratched", cohort: :november},
+{name: "Michael Corleone", cohort: :november},
+{name: "Alex DeLarge", cohort: :november},
+{name: "The Wicked Witch of the West", cohort: :november},
+{name: "Terminator", cohort: :november},
+{name: "Freddy Krueger", cohort: :november},
+{name: "The Joker", cohort: :november},
+{name: "Joffrey Baratheon", cohort: :november},
+{name: "Norman Bates", cohort: :november},
 
 ]
 
 # and then print them
-puts "The students of Villians Academy"
-puts "---------------"
-students.each do |student|
-  puts student
+def print_header
+  puts "The students of Villians Academy"
+  puts "---------------"
 end
+
+def print(students)
+  students.each do |student|
+    puts "#{student[:name]} (#{student[:cohort]} cohort)" 
+  end    
+end
+
 # finally, we print the total number of studentss
-print "Overall, we have #{students.count} great students"
+def print_footer(directory)
+  print "Overall, we have #{directory.count} great students"
+end
+
+#nothing happens until we call the methods
+print_header
+print(students)
+print_footer(students)
 
