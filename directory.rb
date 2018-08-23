@@ -29,7 +29,7 @@ end
 
 # finally, we print the total number of studentss
 def print_footer(directory)
-  print "Overall, we have #{directory.count} great students"
+  puts "Overall, we have #{directory.count} great students"
 end
 
 #nothing happens until we call the methods
