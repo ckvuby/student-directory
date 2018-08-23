@@ -7,14 +7,12 @@ def print_header
 end
 
 def print(students)
-  n = 0
-  while n < students.length
-    puts "#{students[n][:name]} (#{students[n][:cohort]} cohort)" 
-    n += 1  
+  students.each_with_index do | student, index |
+    puts "#{index+1} #{student[:name]} - Hobby: #{student[:hobby]} - (#{student[:cohort]} cohort)" 
   end
 end   
 
-# finally, we print the total number of studentss
+# finally, we print the total number of students
 def print_footer(directory)
   puts "Overall, we have #{directory.count} great students"
 end
@@ -28,15 +26,16 @@ def input_students
   name = gets.chomp
   # while the name is not empty, repeat the code
   while !name.empty? do
+    puts "Please enter hobby of student"
+    hobby = gets.chomp
     # add the student hash to the array
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november, hobby: hobby}
     puts "Now we have #{students.count} students"
     name = gets.chomp
   end
   # returns the array of students
   students
 end
-
 #nothing happens until we call the methods
 students = input_students
 print_header
