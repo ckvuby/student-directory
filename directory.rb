@@ -7,12 +7,12 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index do |student, index|
-      if student[:name].length < 12 
-        puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" 
-      end
-  end    
-end
+  n = 0
+  while n < students.length
+    puts "#{students[n][:name]} (#{students[n][:cohort]} cohort)" 
+    n += 1  
+  end
+end   
 
 # finally, we print the total number of studentss
 def print_footer(directory)
