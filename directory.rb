@@ -8,7 +8,7 @@ end
 
 def print(students)
   students.each_with_index do | student, index |
-    puts "#{index+1} #{student[:name]} - Hobby: #{student[:hobby]} - (#{student[:cohort]} cohort)" 
+    puts "#{index+1} #{student[:name]} - Hobby: #{student[:hobby]} - (#{student[:cohort]} cohort)".center(100, "*") 
   end
 end   
 
