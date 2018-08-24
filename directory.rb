@@ -25,7 +25,11 @@ end
 
 # finally, we print the total number of students
 def print_footer(directory)
-  puts "Overall, we have #{directory.count} great students".center(100)
+  if directory.length > 1
+    puts "Overall, we have #{directory.count} great students".center(100)
+  else
+    puts "Overall, we have #{directory.count} great student".center(100)
+  end
 end
 
 def input_students
@@ -49,7 +53,11 @@ def input_students
     end
     # add the student hash to the array
     students << {name: name, cohort: cohort, hobby: hobby}
-    puts "Now we have #{students.count} students"
+    if students.length > 1
+      puts "Now we have #{students.count} students".center(100)
+    else
+      puts "Now we have #{students.count} student".center(100)
+    end
     name = gets.strip.capitalize
   end
   
