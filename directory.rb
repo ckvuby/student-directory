@@ -36,21 +36,21 @@ def input_students
   students = []
   
   #get the first name
-  name = gets.chomp.capitalize
+  name = gets.strip.capitalize
   
   # while the name is not empty, repeat the code
   while !name.empty? do
     puts "Please enter hobby of student"
-    hobby = gets.chomp.capitalize
+    hobby = gets.strip.capitalize
     puts "Please enter your cohort start month"
-    cohort = gets.chomp.to_sym.capitalize
+    cohort = gets.strip.to_sym.capitalize
     if cohort.empty?
       cohort = "August".to_sym.capitalize
     end
     # add the student hash to the array
     students << {name: name, cohort: cohort, hobby: hobby}
     puts "Now we have #{students.count} students"
-    name = gets.chomp.capitalize
+    name = gets.strip.capitalize
   end
   
   # returns the array of students
