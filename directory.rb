@@ -1,3 +1,4 @@
+require "csv"
 @students = [] # an empty array accessible to all methods
 
 def interactive_menu
@@ -113,12 +114,12 @@ end
 
 def save_students(filename = ARGV.first)
                 # open the file for writing
-    File.open(filename, "w") do |file|
+    CSV.open(filename, "w") do |file|
                   # iterate over the array of students
       @students.each do |student|
-        student_data = [student[:name], student[:cohort], student[:hobby]]
-        csv_line = student_data.join(",")
-        file.puts csv_line
+        student_data = [student[:name], student[:cohort]]
+        p student_data
+        file << student_data
       end
     end
 end
@@ -135,14 +136,11 @@ end
 
 def load_students(filename = "students.csv")
     @students.clear
-    File.open(filename, "r") do |file|
-      file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
+    CSV.foreach(filename) do |row|
+        name, cohort = row
         data_from_file = {name: name, cohort: cohort.to_sym}
         students_toarray(data_from_file)
-      end
     end
-
 end
 
 def try_load_students(filename = ARGV.first)          # first argument of the command line
