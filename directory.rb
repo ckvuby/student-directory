@@ -114,11 +114,10 @@ end
 
 def save_students(filename = ARGV.first)
                 # open the file for writing
-    CSV.open(filename, "w") do |file|
+    CSV.open(filename, "w") do |file|               # csv.open to write to a file, takes an array and turns it into string before writing it to file, ie similar function as using .join(",") on an array.
                   # iterate over the array of students
       @students.each do |student|
         student_data = [student[:name], student[:cohort]]
-        p student_data
         file << student_data
       end
     end
@@ -136,8 +135,8 @@ end
 
 def load_students(filename = "students.csv")
     @students.clear
-    CSV.foreach(filename) do |row|
-        name, cohort = row
+    CSV.foreach(filename) do |row|              # csv.foreach reads from file, row is each line, chomps and also splits at "," and returns an array
+        name, cohort = row                      # dual assignment of variable to each line (row in this case)
         data_from_file = {name: name, cohort: cohort.to_sym}
         students_toarray(data_from_file)
     end
