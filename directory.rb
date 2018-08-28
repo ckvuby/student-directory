@@ -113,14 +113,14 @@ end
 
 def save_students(filename = ARGV.first)
                 # open the file for writing
-  file = File.open(filename, "w")
-                # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort], student[:hobby]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+    File.open(filename, "w") do |file|
+                  # iterate over the array of students
+      @students.each do |student|
+        student_data = [student[:name], student[:cohort], student[:hobby]]
+        csv_line = student_data.join(",")
+        file.puts csv_line
+      end
+    end
 end
 
 def loading_file_choice # option 4 - ask user to enter file name to load from
@@ -134,13 +134,15 @@ def loading_file_choice # option 4 - ask user to enter file name to load from
 end
 
 def load_students(filename = "students.csv")
-    file = File.open(filename, "r")
-    file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-      data_from_file = {name: name, cohort: cohort.to_sym}
-      students_toarray(data_from_file)
+    @students.clear
+    File.open(filename, "r") do |file|
+      file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+        data_from_file = {name: name, cohort: cohort.to_sym}
+        students_toarray(data_from_file)
+      end
     end
-    file.close
+
 end
 
 def try_load_students(filename = ARGV.first)          # first argument of the command line
@@ -160,9 +162,6 @@ or leave blank for students.csv***".center(100)
     end
   end
 end
-
-
-
 
 def students_toarray(data)
   @students << data
