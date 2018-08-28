@@ -1,0 +1,1 @@
+puts $0.center(100);puts "Enter file:".center(100);puts File.open(gets.chomp, "r").readlines;
