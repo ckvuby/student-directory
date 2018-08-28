@@ -34,23 +34,24 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   #get the first name
-  name = gets.strip.capitalize
+  name = STDIN.gets.strip.capitalize
   
   # while the name is not empty, repeat the code
   while !name.empty? do
     puts "Please enter your cohort start month"
-    cohort = gets.strip.to_sym.capitalize
+    cohort = STDIN.gets.strip.to_sym.capitalize
     if cohort.empty?
       cohort = "August".to_sym.capitalize
     end
     # add the student hash to the array
-    @students << {name: name, cohort: cohort}
+    info = {name: name, cohort: cohort}
+    students_toarray(info)
     if @students.length > 1
       puts "Now we have #{@students.count} students".center(100)
     else
       puts "Now we have #{@students.count} student".center(100)
     end
-    name = gets.strip.capitalize
+    name = STDIN.gets.strip.capitalize
   end
   @students
 end
@@ -60,7 +61,7 @@ def interactive_menu
   # 1. print the menu and ask the user what to do
   loop do
   print_menu
-  process(gets.chomp)
+  process(STDIN.gets.chomp)
   end
 end
 
@@ -90,7 +91,7 @@ def process(selection)
   when "3"              # save the students & cohort to students.csv
     save_students
   when "4"
-    load_students
+    load_students       # load the students from file
   when "9"    
     exit      # this will cause the program to terminate
   else
@@ -110,13 +111,31 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    data_from_file = {name: name, cohort: cohort.to_sym}
+    students_toarray(data_from_file)
   end
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first           # first argument of the command line
+  return if filename.nil?         # get out of the method if it isn't given
+  if File.exist?(filename)        # if it exists
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else              # if it doesnt exist
+    puts "Sorry, #{filename} doesn't exist, loading default students.csv"
+    load_students
+  end
+end
+
+def students_toarray(data)
+  @students << data
+end
+
+try_load_students
 interactive_menu
